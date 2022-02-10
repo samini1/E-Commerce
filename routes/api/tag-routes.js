@@ -8,6 +8,7 @@ router.get('/', (req, res) => {
   // find all tags
   // be sure to include its associated Product data
   Tag.findAll({
+    attributes: ['id', 'tag_name'],
     include: {
       model: Product,
       attributes: ['product_name', 'price', 'stock', 'category_id']
@@ -27,6 +28,7 @@ router.get('/:id', (req, res) => {
     where: {
       id: req.params.id
     },
+    attributes: ['id', 'tag_name'],
     include: {
       model: Product,
       attributes: ['product_name', 'price', 'stock', 'category_id']
@@ -42,6 +44,7 @@ router.get('/:id', (req, res) => {
 router.post('/', (req, res) => {
   // create a new tag
   Tag.create({
+    id: req.body.id,
     tag_name: req.body.tag_name
   })
   .then(dbTagData => res.json(dbTagData))
